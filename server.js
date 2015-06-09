@@ -21,9 +21,9 @@ app.post('/notas', function(req, res) {
   logger.info('POST', req.body);
 
   // manipulate request
+  //var notaNueva = req.body.nota;
   var notaNueva = req.body.nota;
-  //notaNueva.id = '123';
-
+  notaNueva.id = '123';
   // prepare response
   res.set('Content-Type','application/json');
   res.status(201);

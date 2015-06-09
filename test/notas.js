@@ -27,11 +27,13 @@ describe('recurso /notas', function() {
         .end(function(err, res){
         	var body = res.body;
         	var nota;
-        	console.log(body);
         	expect(body).to.have.property('nota');
-        	nota = body.notas;
-        	console.log(nota);
-        	expect(nota).to.have.property('title', 'Mejorando.la #node-pro');
+        	nota = body.nota;
+          expect(nota).to.have.property('title', 'Mejorando.la #node-pro');
+          expect(nota).to.have.property('description', 'Introduccion a clase');
+          expect(nota).to.have.property('type', 'js');
+          expect(nota).to.have.property('body', 'soy el cuerpo de json');
+        	expect(nota).to.have.property('id');
         	done();
         });
     });
