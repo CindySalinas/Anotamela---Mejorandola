@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
  */
 var app = module.exports = express();
 var port = process.env.PORT || 4000;
+var db = {};
 
 // parse json requests
 app.use(bodyParser.json('application/json'));
@@ -21,9 +22,9 @@ app.post('/notas', function(req, res) {
   logger.info('POST', req.body);
 
   // manipulate request
-  //var notaNueva = req.body.nota;
   var notaNueva = req.body.nota;
-  notaNueva.id = '123';
+  notaNueva.id = Date.now();
+  db[notaNueva.id] = notaNueva;
   // prepare response
   res.set('Content-Type','application/json');
   res.status(201);
@@ -34,6 +35,14 @@ app.post('/notas', function(req, res) {
   });
 });
 
+app.get('/notas/:id?', function(req, res){
+  console.log('GET /notas/%s', req.params.id);
+  var id = req.params.id;
+  var nota = db[id];
+  res.json({
+    notas: nota
+  });
+});
 /**
  * Start server if we're not someone else's dependency
  */
